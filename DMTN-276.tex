@@ -62,14 +62,6 @@ Not only do the saturated pixels have an increased signal, but so do all the pix
 
 \section{Effect of Persistence on DC2 Images}
 
-Since this effect will not be easily removed, I looked into how persistence will affect LSST like images and measurements on the objects. 
-I adopted the same model as desribed above for the persistence and its trail and added it into subsquent images. 
-Figure \ref{fig:ex_persistence} shows an example of a DC2 image and the model persistence applied to it. 
-I then plotted a histogram of the fraction of persistence affected pixels as seen in Figure \ref{fig:affected_pixels}. 
-This shows the number of images with the corresponidng fraction of affected pixels. 
-For most images, $<0.2\%$ of pixels are affected in the subsquent images.
-
-
 \begin{figure*}[!htp]
   \centering
   \includegraphics[width=0.95\textwidth, angle=0]{Obj_pers.png}
@@ -90,6 +82,14 @@ For most images, $<0.2\%$ of pixels are affected in the subsquent images.
 \end{figure*}
 
 
+Since this effect will not be easily removed, I looked into how persistence will affect LSST like images and measurements on the objects. 
+I adopted the same model as desribed above for the persistence and its trail and added it into subsquent images. 
+Figure \ref{fig:ex_persistence} shows an example of a DC2 image and the model persistence applied to it. 
+I then plotted a histogram of the fraction of persistence affected pixels as seen in Figure \ref{fig:affected_pixels}. 
+This shows the number of images with the corresponidng fraction of affected pixels. 
+For most images, $<0.2\%$ of pixels are affected in the subsquent images.
+
+
 \section {Effect of Persistence on DC2 Objects}
 
 \begin{figure*}[!htp]
@@ -103,11 +103,11 @@ For most images, $<0.2\%$ of pixels are affected in the subsquent images.
 \end{figure*}
 
 To measure the effect that this would have on DC2 objects, I used a small subset of data (around 20 images) from DC2 
-found in this collection \texttt{`2.2i/runs/test-med-1/w_2023_17/DM-39092'}. 
+found in this collection \texttt{$`2.2i/runs/test-med-1/w_2023_17/DM-39092'$}. 
 Taking the raw images from this dataset, 
 I ran a similar process to the procedure in measuring the effect on an a suite of DC2 images and added the persistence in. 
-I then saved these images as 'raw_modified' images and ran these types of images through the DRP pipeline up until the 'calexp' image step.
-These images can be found in the collection \texttt{`u/banovetz/dc2/w_2023_34/raw_persistence_single_value_output'}
+I then saved these images as `raw_modified' images and ran these types of images through the DRP pipeline up until the 'calexp' image step.
+These images can be found in the collection \texttt{$`u/banovetz/dc2/w_2023_34/raw_persistence_single_value_output'$}
 
 There were roughly 200 objects in these 20 images that were affected by persistence an example of which can be seen in Figure \ref{fig:obj_persistence}.
 Comparing these objects with and without persistence, 
