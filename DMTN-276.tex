@@ -67,9 +67,8 @@ Not only do the saturated pixels have an increased signal, but so do all the pix
   \includegraphics[width=0.95\textwidth, angle=0]{Obj_pers.png}
   \caption{
   A zoomed in object that shows the persistence affected image (left), the original image (middle) 
-  and the subtraction between the two to highlight the persistencet (right)
-  }
-\label{fig:ex_persistence}
+  and the subtraction between the two to highlight the persistence (right).
+  }\label{fig:ex_persistence}
 \end{figure*}
 
 \begin{figure*}[!htp]
@@ -77,8 +76,7 @@ Not only do the saturated pixels have an increased signal, but so do all the pix
   \includegraphics[width=0.95\textwidth, angle=0]{DC2_percent_affected_pixels.png}
   \caption{
   The percentage of affected pixels using 4000 sequential DC2 images. The majority of the images have $<0.2\%$ of their pixels affected. 
-  }
-\label{fig:affected_pixels}
+  }\label{fig:affected_pixels}
 \end{figure*}
 
 
@@ -90,7 +88,7 @@ This shows the number of images with the corresponidng fraction of affected pixe
 For most images, $<0.2\%$ of pixels are affected in the subsquent images.
 
 
-\section {Effect of Persistence on DC2 Objects}
+\section{Effect of Persistence on DC2 Objects}
 
 \begin{figure*}[!htp]
   \centering
@@ -98,15 +96,14 @@ For most images, $<0.2\%$ of pixels are affected in the subsquent images.
   \caption{
   A zoomed in object that shows the persistence affected image (left), the original image (middle) 
   and the subtraction between the two to highlight the persistencet (right)
-  }
-\label{fig:obj_persistence}
+  }\label{fig:obj_persistence}
 \end{figure*}
 
 To measure the effect that this would have on DC2 objects, I used a small subset of data (around 20 images) from DC2 
 found in this collection \texttt{$`2.2i/runs/test-med-1/w_2023_17/DM-39092'$}. 
 Taking the raw images from this dataset, 
 I ran a similar process to the procedure in measuring the effect on an a suite of DC2 images and added the persistence in. 
-I then saved these images as `raw_modified' images and ran these types of images through the DRP pipeline up until the 'calexp' image step.
+I then saved these images as \texttt{$`raw_modified'$} images and ran these types of images through the DRP pipeline up until the 'calexp' image step.
 These images can be found in the collection \texttt{$`u/banovetz/dc2/w_2023_34/raw_persistence_single_value_output'$}
 
 There were roughly 200 objects in these 20 images that were affected by persistence an example of which can be seen in Figure \ref{fig:obj_persistence}.
@@ -121,8 +118,7 @@ Figure \ref{fig:absolute_fractional_flux} shows the fractional magnitude differe
   \caption{
   A zoomed in object that shows the persistence affected image (left), the original image (middle) 
   and the subtraction between the two to highlight the persistencet (right)
-  }
-\label{fig:absolute_fractional_flux}
+  }\label{fig:absolute_fractional_flux}
 \end{figure*}
 
 This can be explained as these objects have an area of roughtly 100 square pixels and the trails caused by the persisence can be 10--20 pixels wide.
