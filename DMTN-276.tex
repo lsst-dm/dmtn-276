@@ -58,8 +58,19 @@ I found that the persistence adds a possibly non-negligible amount of flux to fa
 
 \section{Electro-optical Measured Persistence}
 \subsection[]{Definition and Run 5 Measurements}
+
+\begin{figure*}[!htp]
+  \centering
+  \includegraphics[width=0.95\textwidth, angle=0]{Run_5_persistence_ex.png}
+  \caption{
+  Example of peristence in Run 5 data. 
+  This figure shows the initial flash on the left most image (dataId shown as the title) and the subsquent darks images going from left to right.
+  This particular flash has one of the three spots inbetween two amplifiers and you can see the trail starting at the spots and going all the way to the readout of each amplifier.
+  }\label{fig:ex_persistence_Run5}
+\end{figure*}
+
 Persistence is a sensor level effect where charge gets trapped from one image and `persists' into the next and some fraction of the original charge. 
-Figure BLANK shows an example of this from Run 6 data where a saturated spot persists into a subsequent dark image. 
+Figure \ref{fig:ex_persistence_Run5} shows an example of this from Run 5 data where saturated spot persists into subsequent dark images. 
 Persistence for LSSTCam was first found in Run 5 of electro-optical (EO) testing at SLAC from crosstalk measurements. 
 Further investigation found that this effect only affected E2V sensors. 
 This persistence was found to have an average signal after the flash of 6 ADU and had a decay constant of 37 seconds. 
@@ -72,6 +83,16 @@ Following this discovery in Run 5, we tested and characterized the persistence f
 This included using both a flat illumnination to induce persistence as well as utilizing a pinhole filter to create saturated spots to measure the persistence.
 
 \subsection[]{Flat Induced Persistence}
+\begin{figure*}[!htp]
+  \centering
+  \includegraphics[width=0.95\textwidth, angle=0]{Run_5_persistence_ex.png}
+  \caption{
+  Example of peristence in Run 5 data. 
+  This figure shows the initial flash on the left most image (dataId shown as the title) and the subsquent darks images going from left to right.
+  This particular flash has one of the three spots inbetween two amplifiers and you can see the trail starting at the spots and going all the way to the readout of each amplifier.
+  }\label{fig:ex_persistence_Run5}
+\end{figure*}
+
 Flat illuminated persistence measurements were taken during B and C protocol runs.
 The procedure for these measurements were to take a incredibly bright (3~4 times full well) flat followed by 15 second dark images.
 This is to induce the persistence, determine the level and then track its decay.
@@ -81,7 +102,7 @@ Unfortunately this method does not allow us to measure the trail caused by the t
 One of the concerning discoveries with these measurements were the level of persistence was reaching 10 ADU on a per amp basis.
 Figure XXX shows an example of a focal plane plot displaying the per amp value of the first dark image after the flash as well as the actual dark image.
 One of the ways to lower or remove the persistence effect is to adjust the parallel swing voltages of the detector.
-We tried this and Figure XXX comapares the per amp plot between the nominal voltages and the slightly higher parallel swing voltages.
+We tried this and Figure XXX comapares the per amp plot between the nominal voltages and the slightly higher parallel swing voltages ( vs ).
 This did lower the persistence level but much less than what was expected (only $10\%$).
 
 
@@ -96,12 +117,12 @@ Figure XXXX shows an example of one of the spots and the subsquent dark image wi
 Using these images, we are able to measure the persistence induced by the saturated pixels as well as the trail that follows.
 We then model the persistence decay using this function:
 \begin{equation*}
-  $Counts= A * \exp(t/\tau)$
+  C= A * \exp(t/\tau)
 \end{equation*}
-where \textit{Counts} are the counts in the the dark image, \textit{t} is the integration time since the flash, \textit{\tau} is the decay constant and \textit{A} is a constant.
+where \textit{C} are the average number of counts at the location of the spot in the following dark image, \textit{t} is the integration time since the flash, \textit{\tau} is the decay constant and \textit{A} is a constant.
 Figure XXX shows an example of the decay of the both the spot and the trail and the corresponding model fit for one detector.
 
-
+Figure XXX shows the values for \textit{A} and \textit{tau} for all detectors and all exposures that showed persistence.
 \section{Effect of Persistence on DC2 Images}
 
 \begin{figure*}[!htp]
@@ -124,8 +145,8 @@ Figure XXX shows an example of the decay of the both the spot and the trail and 
 
 Since this effect will not be easily removed, I looked into how persistence will affect LSST like images and measurements on the objects. 
 I adopted the same model as desribed above for the persistence and its trail and added it into subsquent images. 
-Figure \ref{fig:ex_persistence} shows an example of a DC2 image and the model persistence applied to it. 
-I then plotted a histogram of the fraction of persistence affected pixels as seen in Figure \ref{fig:affected_pixels}. 
+Figure ~\ref{fig:ex_persistence} shows an example of a DC2 image and the model persistence applied to it. 
+I then plotted a histogram of the fraction of persistence affected pixels as seen in Figure ~\ref{fig:affected_pixels}. 
 This shows the number of images with the corresponidng fraction of affected pixels. 
 For most images, $<0.2\%$ of pixels are affected in the subsquent images.
 
@@ -145,7 +166,7 @@ To measure the effect that this would have on DC2 objects, I used a small subset
 found in this collection \texttt{$`2.2i/runs/test-med-1/w_2023_17/DM-39092'$}. 
 Taking the raw images from this dataset, 
 I ran a similar process to the procedure in measuring the effect on an a suite of DC2 images and added the persistence in. 
-I then saved these images as \texttt{$`raw_modified'$} images and ran these types of images through the DRP pipeline up until the 'calexp' image step.
+I then saved these images as \texttt{$`raw_modified'$} images and ran these types of images through the DRP pipeline up until the `calexp' image step.
 These images can be found in the collection \texttt{$`u/banovetz/dc2/w_2023_34/raw_persistence_single_value_output'$}
 
 There were roughly 200 objects in these 20 images that were affected by persistence an example of which can be seen in Figure \ref{fig:obj_persistence}.
@@ -170,12 +191,12 @@ Increase the flux by 100--600 ADU of an object would cause this discrepancy.
 \appendix
 % Include all the relevant bib files.
 % https://lsst-texmf.lsst.io/lsstdoc.html#bibliographies
-\section{References} \label{sec:bib}
+\section{References}\label{sec:bib}
 \renewcommand{\refname}{} % Suppress default Bibliography section
 \bibliography{local,lsst,lsst-dm,refs_ads,refs,books}
 
 % Make sure lsst-texmf/bin/generateAcronyms.py is in your path
-\section{Acronyms} \label{sec:acronyms}
+\section{Acronyms}\label{sec:acronyms}
 \input{acronyms.tex}
 % If you want glossary uncomment below -- comment out the two lines above
 %\printglossaries
