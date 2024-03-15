@@ -92,14 +92,14 @@ This included using both a flat illumnination to induce persistence as well as u
   \caption{
   Full focal plane images of the counts in the first dark image after a bright exposure for run 13392.
   The left shows the amplifier level average for all science sensors of the subsequent dark.
-  The right shows a binned image of the dark image from RubinTV.
+  The right shows a binned image of the dark image from RubinTV\@.
   % This particular flash has one of the three spots inbetween two amplifiers and you can see the trail starting at the spots and going all the way to the readout of each amplifier.
   }\label{fig:Flat_Induced}
 \end{figure*}
 
 Flat illuminated persistence measurements were taken during B and C protocol runs.
 The procedure for these measurements were to take a incredibly bright (3~4 times full well) flat followed by 15 second dark images.
-These images are then run through both \texttt{cp_pipe} and \texttt{eo_pipe}.
+These images are then run through both $\texttt{cp_pipe}$ and $\texttt{eo_pipe}$.
 This is to induce the persistence, determine the level and then track its decay.
 Unfortunately this method does not allow us to measure the trail caused by the the persistence as all the pixels are saturated.
 
@@ -174,7 +174,7 @@ This figures points to there being a relationship between flashtime/the brightes
 \section{Effect of Persistence on DC2 Images}
 
 Though studies are currently being done to minimize or elminate persistence, one of the next steps is to see how much persistence will affect LSST given its current rought characterization.
-To study these effects, we used LSST DC2 data and the rough characterization that all persistence has a \textit{\tau} of 15 seconds and all saturated pixels have a amplitude of 5 ADU.
+To study these effects, we used LSST DC2 data and the rough characterization that all persistence has a \textit{\tau} of 15 seconds and all saturated pixels have a amplitude of 5 ADU\@.
 These numbers are similar to what we see with the pinhole data, which we feel will represent what on-sky data would look like better.
 As most of the characterization has been with the spot and not the trail, we use 5 different schema to determine the impact of the trail: assume the trail carries with it 100\%, 75\%, 50\%, 25\%, and 0\% of the spot persistence level.
 We only used one of the e2V detectors at random (detector number 88/R21-S21) for this analysis and then assume that this detector is representative of the other e2V detectors.
@@ -200,7 +200,7 @@ Another possible metric that could be impacted by the persistence are the object
 For this study, we created a new dataset type called \texttt{raw_modified}. 
 This dataset type takes the \texttt{raw} file and adds the persistence model as described above utilizing the previous images.
 For this study, we utilized a small subset of the DC2 dataset (68 images) and the latest reprocessing using the latest verison of the Data Release Pipeline (DRP).
-We then run the \texttt{raw_modified} images through the \texttt{isr}, \texttt{characterizeImage}, and \texttt{calibrate} steps of the DRP.
+We then run the \texttt{raw_modified} images through the \texttt{isr}, \texttt{characterizeImage}, and \texttt{calibrate} steps of the DRP\@. 
 
 Figure XXX shows an example image comparing the two \textit{calexp} images from \textit{raw} and \textit{raw_modified}.
 
