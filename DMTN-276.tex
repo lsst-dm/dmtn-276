@@ -10,7 +10,7 @@
 %\input{aglossary.tex}
 %\makeglossaries
 
-\title{Effects of Persistence and E2V Sensors using DC2 Data}
+\title{Effects of Persistence on E2V Sensors and its Impacts on DC2 Data}
 
 % Optional subtitle
 % \setDocSubtitle{A subtitle}
@@ -57,18 +57,6 @@ I found that the persistence adds a possibly non-negligible amount of flux to fa
 % You can also use the \input command to include several content files.
 
 \section{Electro-optical Measured Persistence}
-\begin{figure*}[!htp]
-  \centering
-  \includegraphics[width=0.95\textwidth, angle=0]{Run_5_persistence_ex.png}
-  \caption{
-  Example of peristence in Run 5 data. 
-  This figure shows the initial flash on the left most image (dataId shown as the title) and the subsquent darks images going from left to right.
-  This particular flash has one of the three spots inbetween two amplifiers and you can see the trail starting at the spots and going all the way to the readout of each amplifier.
-  }\label{fig:ex_persistence_Run5}
-\end{figure*}
-
-\subsection{Definition and Run 5 Measurements}
-
 % \begin{figure*}[!htp]
 %   \centering
 %   \includegraphics[width=0.95\textwidth, angle=0]{Run_5_persistence_ex.png}
@@ -78,6 +66,18 @@ I found that the persistence adds a possibly non-negligible amount of flux to fa
 %   This particular flash has one of the three spots inbetween two amplifiers and you can see the trail starting at the spots and going all the way to the readout of each amplifier.
 %   }\label{fig:ex_persistence_Run5}
 % \end{figure*}
+
+\subsection{Definition and Run 5 Measurements}
+
+\begin{figure*}[!htp]
+  \centering
+  \includegraphics[width=0.95\textwidth, angle=0]{Run_5_persistence_ex.png}
+  \caption{
+  Example of peristence in Run 5 data. 
+  This figure shows the initial flash on the left most image (dataId shown as the title) and the subsquent darks images going from left to right.
+  This particular flash has one of the three spots inbetween two amplifiers and you can see the trail starting at the spots and going all the way to the readout of each amplifier.
+  }\label{fig:ex_persistence_Run5}
+\end{figure*}
 
 
 
@@ -183,7 +183,7 @@ This figures points to there being a relationship between flashtime/the brightes
 
 \section{Effect of Persistence on DC2 Images}
 
-Though studies are currently being done to minimize or elminate persistence, one of the next steps is to see how much persistence will affect LSST given its current rought characterization.
+Though studies are currently being done to minimize or elminate persistence, both through hardwarre and processing, one of the next steps is to see how much persistence will affect LSST given its current rought characterization.
 To study these effects, we used LSST DC2 data and the rough characterization that all persistence has a \textit{\tau} of 15 seconds and all saturated pixels have a amplitude of 5 ADU\@.
 These numbers are similar to what we see with the pinhole data, which we feel will represent what on-sky data would look like better.
 As most of the characterization has been with the spot and not the trail, we use 5 different schema to determine the impact of the trail: assume the trail carries with it 100\%, 75\%, 50\%, 25\%, and 0\% of the spot persistence level.
@@ -194,13 +194,30 @@ We also only utilize single visit images to mimic what the effect would be as im
 
 One of the first studies we did was to look at the number of affected pixels due to persistence during a simulated night of observing.
 To do this, we utilized the DC2 dataset located at the Google data facility.
-Taking 4000 images, we simulated the persistence by having a running list of footprints with persistence.
-If the persisence dropped below 1 ADU, the footprints were taken off the list, as this is starting to reach the level of the detector noise.
-Table YYYY shows the average number of affected pixels in each of the schema.
+Taking 1000 images, we simulated the persistence by having a running list of footprints with persistence.
+If the persisence dropped below 1 ADU, the footprints were taken off the list, as this is starting to reach the level of the bias noise.
+Table \ref{tab:persis_affected}shows the average number of affected pixels in each of the schema.
 
-% \begin{table}
-  
-% \end{table}
+\begin{table}[h!]
+\centering
+\begin{tabular}{|lcccc|}
+\hline
+\% of Spot in Trail & >3 ADU ($10^{-4}$) & >1 ADU ($10^{-4}$) & >0.1 ADU ($10^{-4}$) & >0.01 ADU ($10^{-4}$) \\
+\hline
+100 & 5.85 & 5.85 & 11.7 & 23.4 \\
+75 & 5.85 & 5.85 & 11.7 & 17.5 \\
+50 & 0.0216 & 5.85 & 11.7 & 17.5 \\
+25 & 0.0216 & 5.85 & 11.7 & 17.5 \\
+0 & 0.0216 & 3.91 & 7.81 & 11.7 \\
+% Dark &
+\hline
+\end{tabular}\label{tab:persis_affected}
+\caption{Table showing the average about of pixels in persistence affected regions above ceratin ADU levels. 
+The numbers are then normalized to fraction of total CCD pixels affected.
+We compare with different trail levels.
+%  taken from a recent EO testing Opsim run.
+}  
+\end{table}
 
 
 
@@ -212,24 +229,29 @@ This dataset type takes the \texttt{$raw$} file and adds the persistence model a
 For this study, we utilized a small subset of the DC2 dataset (68 images) and the latest reprocessing using the latest verison of the Data Release Pipeline (DRP).
 We then run the \texttt{$raw_modified$} images through the \texttt{$isr$}, \texttt{$characterizeImage$}, and \texttt{$calibrate$} steps of the DRP\@. 
 
-Figure XXX shows an example image comparing the two \texttt{$calexp$} images from \texttt{$raw$} and \texttt{$raw_modified$}.
+Figure \ref{fig:ex_persistence} shows an example image of an object comparing the two \texttt{$calexp$} images from \texttt{$raw$} and \texttt{$raw_modified$}.
+Using these 68 images, we measured the differences in magnitude of objects centered in the persistence affected regions.
+Figure \ref{fig:affected_objects_all} shows the difference in magnitude using both the an aperture flux and PSF flux.
 
-% \begin{figure*}[!htp]
-%   \centering
-%   \includegraphics[width=0.95\textwidth, angle=0]{Obj_pers.png}
-%   \caption{
-%   A zoomed in object that shows the persistence affected image (left), the original image (middle) 
-%   and the subtraction between the two to highlight the persistence (right).
-%   }\label{fig:ex_persistence}
-% \end{figure*}
+\begin{figure*}[!htp]
+  \centering
+  \includegraphics[width=0.95\textwidth, angle=0]{Obj_pers.png}
+  \caption{
+  A zoomed in object that shows the persistence affected image (left), the original image (middle) 
+  and the subtraction between the two to highlight the persistence (right).
+  }\label{fig:ex_persistence}
+\end{figure*}
 
-% \begin{figure*}[!htp]
-%   \centering
-%   \includegraphics[width=0.95\textwidth, angle=0]{DC2_percent_affected_pixels.png}
-%   \caption{
-%   The percentage of affected pixels using 4000 sequential DC2 images. The majority of the images have $<0.2\%$ of their pixels affected. 
-%   }\label{fig:affected_pixels}
-% \end{figure*}
+\begin{figure*}[!htp]
+  \centering
+  \includegraphics[width=0.95\textwidth, angle=0]{Total_Objects_affected.png}
+  \caption{
+  The changes of magnitude of objects in persistence affected regions for all five trail regimes. 
+  Also included is the number of objects affected.
+  These plots only look at magnitudes up to 25th mag.
+  There are sources at magnitudes >25 mag but 25th magnitude is the magnitude limit of single exposures.
+  }\label{fig:affected_objects_all}
+\end{figure*}
 
 
 % Since this effect will not be easily removed, I looked into how persistence will affect LSST like images and measurements on the objects. 
