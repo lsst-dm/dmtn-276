@@ -71,10 +71,10 @@ I found that the persistence adds a possibly non-negligible amount of flux to fa
 
 \begin{figure*}[!htp]
   \centering
-  \includegraphics[width=0.95\textwidth, angle=0]{Run_5_persistence_ex.png}
+  \includegraphics[width=0.95\textwidth, angle=0]{Run_5_persistence_ex_2.png}
   \caption{
   Example of peristence in Run 5 data. 
-  This figure shows the initial flash on the left most image (dataId shown as the title) and the subsquent darks images going from left to right.
+  This figure shows the initial flash on the left most image (dataId shown as the title) and a portion of the subsquent darks images going from left to right.
   This particular flash has one of the three spots inbetween two amplifiers and you can see the trail starting at the spots and going all the way to the readout of each amplifier.
   }\label{fig:ex_persistence_Run5}
 \end{figure*}
@@ -82,13 +82,15 @@ I found that the persistence adds a possibly non-negligible amount of flux to fa
 
 
 Persistence is a sensor level effect where charge gets trapped from one image and `persists' into the next at some fraction of the original charge. 
-Figure \ref{fig:ex_persistence_Run5} shows an example of this from Run 5 data where three saturated spots persist into subsequent dark images. 
+Figure \ref{fig:ex_persistence_Run5} shows an example of this from Run 5 data where three saturated spots ($>10**5$ e-/pixel) persist into subsequent dark images. 
 Persistence for LSSTCam was first found in Run 5 of electro-optical (EO) testing at SLAC from crosstalk measurements. 
 Further investigation found that this effect only affected E2V sensors
 % This persistence was found to have an average signal after the flash of 6 ADU and had a decay constant of 37 seconds. 
-and that the persistence was only mitigated via integration time as no persistence was shown in biases. 
+and that the persistence was only mitigated via integration time. 
+Mitigation tests were done and found that while darks were able to release the trapped persistence charge, there were no signs of persistence in biases. 
 One of the troublesome features of the persistence in the E2V sensors is the persistence trail. 
-Not only do the saturated pixels have an increased signal, but so do all the pixels leading to the end of the amplifier in the parallel direction.
+% Not only do the saturated pixels have an increased signal, but so do all the pixels leading to the end of the amplifier in the parallel direction.
+In addition to the persistence from the bright source, the pixels through which the source is transferred during readout also show persistence, leaving a trail from the source to the edge of the amplifier.
 
 \subsection{Run 6 Measurements}
 Following this discovery in Run 5, we tested and characterized the persistence further in Run 6a and 6b. 
@@ -97,8 +99,9 @@ This included using both a flat illumnination to induce persistence as well as u
 \subsubsection{Flat Induced Persistence}
 \begin{figure*}[!htp]
   \centering
-  \includegraphics[width=0.45\textwidth, angle=0]{Run_13392_Persistence.png}
-  \includegraphics[width=0.45\textwidth, angle=0]{Persistence_Flat_Example.png}
+  % \includegraphics[width=0.48\textwidth, angle=0]{Run_13392_Persistence.png}
+  % \includegraphics[width=0.48\textwidth, angle=0]{Persistence_Flat_Example.png}
+  \includegraphics[width=0.48\textwidth, angle=0]{Ex_Flat_FP_combined.png}
   \caption{
   Full focal plane images of the counts in the first dark image after a bright exposure for run 13392.
   The left shows the amplifier level average for all science sensors of the subsequent dark.
@@ -111,7 +114,7 @@ Flat illuminated persistence measurements were taken during B and C protocol run
 The procedure for these measurements were to take a incredibly bright (3--4 times full well) flat followed by 15 second dark images.
 These images are then run through both \texttt{$cp\_pipe$} and \texttt{$eo\_pipe$}.
 This procedure is designed to induce the persistence, determine the level and then track its decay.
-Unfortunately this method does not allow us to measure the trail caused by the the persistence as all the pixels are saturated.
+Unfortunately this method does not allow us to measure the trail caused by the persistence as all the pixels are saturated.
 
 \begin{figure*}[!htp]
   \centering
@@ -124,8 +127,10 @@ Unfortunately this method does not allow us to measure the trail caused by the t
   }\label{fig:Flat_Induced_Comparison}
 \end{figure*}
 
-One of the concerning discoveries with these measurements were the level of persistence was reaching 10 ADU on a per amp basis.
+One of the concerning discoveries with these measurements were the level of persistence was reaching as high as 10 ADU.
 Figure \ref{fig:Flat_Induced} shows an example of a focal plane plot displaying the per amp value of the first dark image after the flash as well as the actual dark image.
+This figure shows that not only are there large variations between E2V detectors, but also variations on the amplifier level.
+
 One of the ways to lower or remove the persistence effect is to adjust the parallel swing voltages of the detector.
 This was tested and Figure \ref{fig:Flat_Induced_Comparison} comapares the per amp plot between the nominal voltages and the slightly higher parallel clock swing voltages (-9.3 vs -9.0 V).
 This change did lower the persistence level but much less than what was expected (only $10\%$).
@@ -136,7 +141,7 @@ During Run 6b, we utilized the pinhole filter to measure the persistence of the 
 The pinhole filter is positioned so that a small area of light hits one amplifier on each of the middle detectors on a raft.
 This means that we can only measure the persistence of 13 e2V detectors but we are able to get measurements across the focal plane.
 For these tests, we started with flashes from around 20 ke-/pixel below full well (~100 ke-/pixel) and ramped to twice full well (200 ke-/pixel).
-After each flash, we take 10, 15 second dark images which we use to measure the persistence.
+After each flash, we take 10 dark images with 15 second integration times which we use to measure the persistence.
 These images are then overscan and bias corrected.
 Figure \ref{fig:Run6_example} shows an example of one of the saturated pixels (spot) and the subsquent dark image with persistence.
 
@@ -145,7 +150,7 @@ Figure \ref{fig:Run6_example} shows an example of one of the saturated pixels (s
   \includegraphics[width=0.85\textwidth, angle=0]{Run6_ex.png}
   \caption{
   Similar to Figure \ref{fig:ex_persistence_Run5} but with the pinhole filter. 
-  This shows the initail flash and the spot (left) and the dark imgaes that followed.
+  This shows the initial flash and the spot (left) and the dark images that followed.
   }\label{fig:Run6_example}
 \end{figure*}
 
@@ -153,9 +158,9 @@ Figure \ref{fig:Run6_example} shows an example of one of the saturated pixels (s
 Using these images, we are able to measure the persistence induced by the saturated pixels as well as the trail that follows.
 We then model the persistence decay using this function:
 \begin{equation*}
-  Counts= A * \exp(t/\tau)+c
+  \textrm{Counts}= A * \exp(t/\tau)+c
 \end{equation*}
-where \textit{Counts} are the average number of counts at the location of the spot in the following dark image, \textit{t} is the integration time since the flash, \textit{$\tau$} is the decay constant and \textit{A} and \textit{c} are constants.
+where \textit{Counts} are the average number of counts at the location of the spot in the following dark image, \textit{t} is the time since flash, 15 seconds of which are with the CCDs integrating, \textit{$\tau$} is the decay constant and \textit{A} and \textit{c} are constants.
 Figure \ref{fig:Run6_decay} shows an example of the decay of the both the spot and the trail and the corresponding model fit for one detector.
 
 \begin{figure*}[!ht]
@@ -168,7 +173,7 @@ Figure \ref{fig:Run6_decay} shows an example of the decay of the both the spot a
   }\label{fig:Run6_decay}
 \end{figure*}
 
-Figure \ref{fig:Pers_Flash_Tau} shows the values for \textit{A} and \textit{$\tau$} for all detectors and all exposures that showed persistence. 
+Figure \ref{fig:Pers_Flash_Tau} shows the values for \textit{A} and \textit{$\tau$} for all measured e2v detectors and all exposures that showed persistence. 
 This figure shows that while \textit{$\tau$} is roughly the same for all images (between 10--20 seconds), the amplitude of the effect changes.
 There also is a relationship between flashtime/the brightest of the spot and the persistence measured signal.
 
@@ -176,27 +181,32 @@ There also is a relationship between flashtime/the brightest of the spot and the
   \centering
   \includegraphics[width=0.95\textwidth, angle=0]{Persistence_Flash_Tau.png}
   \caption{
-  The relationship between flash time (a proxy for a bright source) and amplitude (left) and tau (right) for the spot. 
+  The relationship between the duration of the LED flash (a proxy for the brightness of a saturated source) and amplitude (left) and tau (right) for the spot.
+  Each point represents the measured tau and amplitude values of a single sensor from a single exposure that displayed persistence.
   The amplitude appears to be dependent on the flash time, while tau is invariant and is consistently between 10--20 seconds. 
   }\label{fig:Pers_Flash_Tau}
 \end{figure*}
 
-\section{Effect of Persistence on DC2 Images}
+\section{Effect of Persistence on DC2 Data}
 
-Though studies are currently being done to minimize or elminate persistence, both through hardware and processing, one of the next steps is to see how much persistence will affect LSST given its current rought characterization.
-To study these effects, we used LSST DC2 data and the rough characterization that all persistence has a \textit{$\tau$} of 15 seconds and all saturated pixels have a amplitude of 5 ADU\@.
-These numbers are similar to what we see with the pinhole data, which we feel will better represent on-sky data.
-As most of the characterization has been with the spot and not the trail, we use 5 different schema to determine the impact of the trail: assume the trail carries with it 100\%, 75\%, 50\%, 25\%, and 0\% of the spot persistence level.
+Though studies are currently being done to minimize or elminate persistence amplitude, both through hardware and processing, one of the next steps is to see how much persistence will affect LSST photometric measurements.
+To study these effects, we used DESC DC2 data and assume that the persistence will affect all saturated pixels with the characteristics of a \textit{$\tau$} of 15 seconds and an amplitude of 5 ADU\@.
+These numbers are derived from the pinhole data, which we feel will better represent on-sky data.
+As most of the characterization has been with the spot and not the trail, we use 5 different models to determine the impact of the trail: assume the trail carries with it 100\%, 75\%, 50\%, 25\%, and 0\% of the spot persistence level.
 We only used one of the e2V detectors at random (detector number 88/R21-S21) for this analysis and then assume that this detector is representative of the other e2V detectors.
-We also only utilize single visit images to mimic what the effect would be as images would be coming from the observatory.
+We also only utilize single-visit images with 30 second exposures to mimic what the effect would be as images would be coming from the observatory.
 
-\subsection{Persistence Affected Pixels}
+\subsection{Affected Pixel Counts}
 
-One of the first studies we did was to look at the number of affected pixels due to persistence during a simulated night of observing.
-To do this, we utilized the DC2 dataset located at the Google data facility.
-Taking 1000 images, we simulated the persistence by having a running list of footprints with persistence.
-If the persisence dropped below 1 ADU, the footprints were taken off the list, as this is starting to reach the level of the bias noise.
-Table \ref{tab:persis_affected}shows the average number of affected pixels in each of the schema.
+One of the first studies we did was to look at the number of affected by persistence during a simulated night of observing.
+To do this, we utilized the 1000 \textt{calexp} images from DC2 dataset. 
+We sorted these images by exposure number in order to apply the persistence as if it was a normal night of observing.
+For each individual image, we first apply a running list of persisted pixels following the equation as described above.
+For this list, we only included persistence that had a signal strength greater than 1 ADU, as below this value is reaching the level of the bias noise.
+After this, we identify the saturated pixels in the image and mapped these pixels, as well as then creating a trail from the saturated pixels to the readout of the amplifier.
+We then repeat this procedure for all 1000 images.
+% If the persistence dropped below 1 ADU, the persistence were taken off the list, as this is starting to reach the level of the bias noise.
+Table \ref{tab:persis_affected}shows the average number of affected pixels in a single image in each of the trail models.
 
 \begin{table}[h!]
 \centering
@@ -212,7 +222,7 @@ Table \ref{tab:persis_affected}shows the average number of affected pixels in ea
 % Dark &
 \hline
 \end{tabular}\label{tab:persis_affected}
-\caption{Table showing the average about of pixels in persistence affected regions above ceratin ADU levels. 
+\caption{Table showing the average about of pixels in persistence-affected regions above ceratin ADU levels. 
 The numbers are then normalized to fraction of total CCD pixels affected.
 We compare with different trail levels.
 %  taken from a recent EO testing Opsim run.
@@ -221,33 +231,35 @@ We compare with different trail levels.
 
 
 
-\subsection{Persistence Affected Objects}
+\subsection{Persistence Induced Flux Effects on Objects}
 
-Another possible metric that could be impacted by the persistence are the object measurements.
+Another possible metric to gauge the impact of persistence is the object measurements.
 For this study, we created a new dataset type called \texttt{$raw\_modified$}. 
 This dataset type takes the \texttt{$raw$} file and adds the persistence model as described above utilizing the previous images.
 For this study, we utilized a small subset of the DC2 dataset (68 images) and the latest reprocessing using the latest verison of the Data Release Pipeline (DRP).
 We then run the \texttt{$raw\_modified$} images through the \texttt{$isr$}, \texttt{$characterizeImage$}, and \texttt{$calibrate$} steps of the DRP\@. 
 
 Figure \ref{fig:ex_persistence} shows an example image of an object comparing the two \texttt{$calexp$} images from \texttt{$raw$} and \texttt{$raw\_modified$}.
-Using these 68 images, we measured the differences in magnitude of objects centered in the persistence affected regions.
+While the persistence is small enough that is extremely diificut to find by eye, the small boost in signal can affect photometric measurements of objects.
+Using these 68 images, we measured the differences in magnitude of objects centered in the persistence-affected regions.
 Figure \ref{fig:affected_objects_all} shows the difference in magnitude using both the an aperture flux and PSF flux.
 
 \begin{figure*}[!htp]
   \centering
   \includegraphics[width=0.95\textwidth, angle=0]{Obj_pers.png}
   \caption{
-  A zoomed in object that shows the persistence affected image (left), the original image (middle) 
+  A zoomed in object that shows the persistence-affected image (left), the original image (middle) 
   and the subtraction between the two to highlight the persistence (right).
   }\label{fig:ex_persistence}
 \end{figure*}
 
 \begin{figure*}[!htp]
   \centering
-  \includegraphics[width=0.95\textwidth, angle=0]{Total_Objects_affected.png}
+  \includegraphics[width=0.95\textwidth, angle=0]{Combined_New_mag_plot.png}
   \caption{
-  The changes of magnitude of objects in persistence affected regions for all five trail regimes. 
-  Also included is the number of objects affected.
+  The changes of magnitude of objects in persistence-affected regions for all five trail regimes, highlighting the 100\% case on the left and the other on the right. 
+  In the blue are the changes in magnitude using the calculated PSF, the changes in magnitude using an aperture (orange), and the average changes in the PSF magnitudes for every 0.5 mag (red)
+  Also included is the number of objects affected as well as the fraction of objects affected vs total objects.
   These plots only look at magnitudes up to 25th mag.
   There are sources at magnitudes >25 mag but 25th magnitude is the magnitude limit of single exposures.
   }\label{fig:affected_objects_all}
