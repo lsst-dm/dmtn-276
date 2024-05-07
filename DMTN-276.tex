@@ -165,7 +165,7 @@ Figure \ref{fig:Run6_decay} shows an example of the decay of the both the spot a
 
 \begin{figure*}[!ht]
   \centering
-  \includegraphics[width=0.95\textwidth, angle=0]{Run_6_decay.png}
+  \includegraphics[width=0.95\textwidth, angle=0]{Run6_decay_2.png}
   \caption{
   The decay of the persistence with consecutive dark images. 
   The blue points are the measured average counts of the spot (left) and trail (right).
@@ -191,6 +191,7 @@ There also is a relationship between flashtime/the brightest of the spot and the
 
 Though studies are currently being done to minimize or elminate persistence amplitude, both through hardware and processing, one of the next steps is to see how much persistence will affect LSST photometric measurements.
 To study these effects, we used DESC DC2 data and assume that the persistence will affect all saturated pixels with the characteristics of a \textit{$\tau$} of 15 seconds and an amplitude of 5 ADU\@.
+We set \textit{c} to zero in this case as there should be no offset with DC2 data.
 These numbers are derived from the pinhole data, which we feel will better represent on-sky data.
 As most of the characterization has been with the spot and not the trail, we use 5 different models to determine the impact of the trail: assume the trail carries with it 100\%, 75\%, 50\%, 25\%, and 0\% of the spot persistence level.
 We only used one of the e2V detectors at random (detector number 88/R21-S21) for this analysis and then assume that this detector is representative of the other e2V detectors.
@@ -240,7 +241,7 @@ For this study, we utilized a small subset of the DC2 dataset (68 images) and th
 We then run the \texttt{$raw\_modified$} images through the \texttt{$isr$}, \texttt{$characterizeImage$}, and \texttt{$calibrate$} steps of the DRP\@. 
 
 Figure \ref{fig:ex_persistence} shows an example image of an object comparing the two \texttt{$calexp$} images from \texttt{$raw$} and \texttt{$raw\_modified$}.
-While the persistence is small enough that is extremely diificut to find by eye, the small boost in signal can affect photometric measurements of objects.
+While the persistence is small enough that is extremely difficult to find by eye, the small boost in signal can affect photometric measurements of objects.
 Using these 68 images, we measured the differences in magnitude of objects centered in the persistence-affected regions.
 Figure \ref{fig:affected_objects_all} shows the difference in magnitude using both the an aperture flux and PSF flux.
 
@@ -257,7 +258,7 @@ Figure \ref{fig:affected_objects_all} shows the difference in magnitude using bo
   \centering
   \includegraphics[width=0.95\textwidth, angle=0]{Combined_New_mag_plot.png}
   \caption{
-  The changes of magnitude of objects in persistence-affected regions for all five trail regimes, highlighting the 100\% case on the left and the other on the right. 
+  The changes of magnitude of objects in persistence-affected regions for all five trail regimes, highlighting the 100\% case on the left and the other models on the right. 
   In the blue are the changes in magnitude using the calculated PSF, the changes in magnitude using an aperture (orange), and the average changes in the PSF magnitudes for every 0.5 mag (red)
   Also included is the number of objects affected as well as the fraction of objects affected vs total objects.
   These plots only look at magnitudes up to 25th mag.
