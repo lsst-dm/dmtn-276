@@ -73,13 +73,20 @@ I found that the persistence adds a possibly non-negligible amount of flux to fa
   \centering
   \includegraphics[width=0.95\textwidth, angle=0]{Run_5_persistence_ex_2.png}
   \caption{
-  Example of peristence in Run 5 data. 
+  % Example of persistence in Run 5 data. 
   This figure shows the initial flash on the left most image (dataId shown as the title) and a portion of the subsquent darks images going from left to right.
-  This particular flash has one of the three spots inbetween two amplifiers and you can see the trail starting at the spots and going all the way to the readout of each amplifier.
+  This particular flash has one of the three spots in between two amplifiers and you can see the trail starting at the spots and going all the way to the readout of each amplifier.
   }\label{fig:ex_persistence_Run5}
 \end{figure*}
 
-
+\begin{figure*}[!htp]
+  \centering
+  \includegraphics[width=0.95\textwidth, angle=0]{Persistence_Cuts.png}
+  \caption{
+  Horizontal and vertical cutouts of an example persistence spot (left) in a 2x2 binned image to highlight the effect. 
+  This represents both the persistence in the spot (blue/red) and the trail (orange/red) as compared to the background (brown/purple).
+  }\label{fig:cuts}
+\end{figure*}
 
 Persistence is a sensor level effect where charge gets trapped from one image and `persists' into the next at some fraction of the original charge. 
 Figure \ref{fig:ex_persistence_Run5} shows an example of this from Run 5 data where three saturated spots ($>10**5$ e-/pixel) persist into subsequent dark images. 
@@ -91,10 +98,11 @@ Mitigation tests were done and found that while darks were able to release the t
 One of the troublesome features of the persistence in the E2V sensors is the persistence trail. 
 % Not only do the saturated pixels have an increased signal, but so do all the pixels leading to the end of the amplifier in the parallel direction.
 In addition to the persistence from the bright source, the pixels through which the source is transferred during readout also show persistence, leaving a trail from the source to the edge of the amplifier.
+Figure \ref{fig:cuts} shows an example of the spot and the trail and highlights some of their differences.
 
 \subsection{Run 6 Measurements}
 Following this discovery in Run 5, we tested and characterized the persistence further in Run 6a and 6b. 
-This included using both a flat illumnination to induce persistence as well as utilizing a pinhole filter to create saturated spots to measure the persistence.
+This included using both a flat illuminination to induce persistence as well as utilizing a pinhole filter to create saturated spots to measure the persistence.
 
 \subsubsection{Flat Induced Persistence}
 \begin{figure*}[!htp]
@@ -121,7 +129,7 @@ Unfortunately this method does not allow us to measure the trail caused by the p
   \includegraphics[width=0.45\textwidth, angle=0]{Run_13392_Persistence.png}
   \includegraphics[width=0.45\textwidth, angle=0]{Run_13410_Persistence_Lower.png}
   \caption{
-  Full Focal plane images with amplifier level resoltuion comparing a subsequent dark image with nomial parallel clock swing voltages (left; Run 13392) 
+  Full Focal plane images with amplifier level resolution comparing a subsequent dark image with nominal parallel clock swing voltages (left; Run 13392) 
   and one with a slightly higher parallel clock swing voltage (right; Run 13410).
   % This particular flash has one of the three spots inbetween two amplifiers and you can see the trail starting at the spots and going all the way to the readout of each amplifier.
   }\label{fig:Flat_Induced_Comparison}
@@ -143,7 +151,7 @@ This means that we can only measure the persistence of 13 e2V detectors but we a
 For these tests, we started with flashes from around 20 ke-/pixel below full well (~100 ke-/pixel) and ramped to twice full well (200 ke-/pixel).
 After each flash, we take 10 dark images with 15 second integration times which we use to measure the persistence.
 These images are then overscan and bias corrected.
-Figure \ref{fig:Run6_example} shows an example of one of the saturated pixels (spot) and the subsquent dark image with persistence.
+Figure \ref{fig:Run6_example} shows an example of one of the saturated pixels (spot) and the subsequent dark image with persistence.
 
 \begin{figure*}[!htp]
   \centering
@@ -189,7 +197,7 @@ There also is a relationship between flashtime/the brightest of the spot and the
 
 \section{Effect of Persistence on DC2 Data}
 
-Though studies are currently being done to minimize or elminate persistence amplitude, both through hardware and processing, one of the next steps is to see how much persistence will affect LSST photometric measurements.
+Though studies are currently being done to minimize or eliminate persistence amplitude, both through hardware and processing, one of the next steps is to see how much persistence will affect LSST photometric measurements.
 To study these effects, we used DESC DC2 data and assume that the persistence will affect all saturated pixels with the characteristics of a \textit{$\tau$} of 15 seconds and an amplitude of 5 ADU\@.
 We set \textit{c} to zero in this case as there should be no offset with DC2 data.
 These numbers are derived from the pinhole data, which we feel will better represent on-sky data.
@@ -223,7 +231,7 @@ Table \ref{tab:persis_affected}shows the average number of affected pixels in a 
 % Dark &
 \hline
 \end{tabular}\label{tab:persis_affected}
-\caption{Table showing the average about of pixels in persistence-affected regions above ceratin ADU levels. 
+\caption{Table showing the average about of pixels in persistence-affected regions above certain ADU levels. 
 The numbers are then normalized to fraction of total CCD pixels affected.
 We compare with different trail levels.
 %  taken from a recent EO testing Opsim run.
@@ -243,7 +251,8 @@ We then run the \texttt{$raw\_modified$} images through the \texttt{$isr$}, \tex
 Figure \ref{fig:ex_persistence} shows an example image of an object comparing the two \texttt{$calexp$} images from \texttt{$raw$} and \texttt{$raw\_modified$}.
 While the persistence is small enough that is extremely difficult to find by eye, the small boost in signal can affect photometric measurements of objects.
 Using these 68 images, we measured the differences in magnitude of objects centered in the persistence-affected regions.
-Figure \ref{fig:affected_objects_all} shows the difference in magnitude using both the an aperture flux and PSF flux.
+Figure \ref{fig:affected_objects_100} and \ref{fig:affected_objects_other} show the difference in magnitude using both the an aperture flux and PSF flux for the various trail scenarios.
+While this effect can be extreme, it also affects a very small percentage of objects, as seen in Figure \ref{fig:cuml}.
 
 \begin{figure*}[!htp]
   \centering
@@ -256,16 +265,32 @@ Figure \ref{fig:affected_objects_all} shows the difference in magnitude using bo
 
 \begin{figure*}[!htp]
   \centering
-  \includegraphics[width=0.95\textwidth, angle=0]{Combined_New_mag_plot.png}
+  \includegraphics[width=0.95\textwidth, angle=0]{Trail_100.png}
   \caption{
-  The changes of magnitude of objects in persistence-affected regions for all five trail regimes, highlighting the 100\% case on the left and the other models on the right. 
+  The changes of magnitude of objects in persistence-affected regions for all the $100\%$ trail regime. 
   In the blue are the changes in magnitude using the calculated PSF, the changes in magnitude using an aperture (orange), and the average changes in the PSF magnitudes for every 0.5 mag (red)
   Also included is the number of objects affected as well as the fraction of objects affected vs total objects.
   These plots only look at magnitudes up to 25th mag.
   There are sources at magnitudes >25 mag but 25th magnitude is the magnitude limit of single exposures.
-  }\label{fig:affected_objects_all}
+  }\label{fig:affected_objects_100}
 \end{figure*}
 
+\begin{figure*}[!htp]
+  \centering
+  \includegraphics[width=0.95\textwidth, angle=0]{Trail_75_0.png}
+  \caption{
+  Simliar to Figure \ref{fig:affected_objects_100} but with the other four trail regimes.
+  }\label{fig:affected_objects_other}
+\end{figure*}
+
+\begin{figure*}[!htp]
+  \centering
+  \includegraphics[width=0.95\textwidth, angle=0]{Cumlative_Percent.png}
+  \caption{
+  Plots showing the cumlation percentage of affect objects when compared to all objects from the 68 images. 
+  The left is the entire plot while the right zooms in aorund where the curve drastically changes.
+  }\label{fig:cuml}
+\end{figure*}
 
 % Since this effect will not be easily removed, I looked into how persistence will affect LSST like images and measurements on the objects. 
 % I adopted the same model as desribed above for the persistence and its trail and added it into subsquent images. 
