@@ -215,7 +215,7 @@ For this list, we only included persistence that had a signal strength greater t
 After this, we identify the saturated pixels in the image and mapped these pixels, as well as then creating a trail from the saturated pixels to the readout of the amplifier.
 We then repeat this procedure for all 1000 images.
 % If the persistence dropped below 1 ADU, the persistence were taken off the list, as this is starting to reach the level of the bias noise.
-Table \ref{tab:persis_affected}shows the average number of affected pixels in a single image in each of the trail models.
+Table \ref{tab:persis_affected}- \ref{tab:persis_affected_highest number) }shows the average fraction of affected pixels in a single image in each of the trail models, as well as the average number of pixels and the highest number of affect pixels.
 
 \begin{table}[h!]
 \centering
@@ -223,7 +223,7 @@ Table \ref{tab:persis_affected}shows the average number of affected pixels in a 
 \hline
 \% of Spot in Trail & >3 ADU ($10^{-4}$) & >1 ADU ($10^{-4}$) & >0.1 ADU ($10^{-4}$) & >0.01 ADU ($10^{-4}$) \\
 \hline
-100 & 5.85 & 5.85 & 11.7 & 23.4 \\
+100 & 5.85 & 5.85 & 11.7  & 23.4 \\
 75 & 5.85 & 5.85 & 11.7 & 17.5 \\
 50 & 0.0216 & 5.85 & 11.7 & 17.5 \\
 25 & 0.0216 & 5.85 & 11.7 & 17.5 \\
@@ -231,13 +231,55 @@ Table \ref{tab:persis_affected}shows the average number of affected pixels in a 
 % Dark &
 \hline
 \end{tabular}\label{tab:persis_affected}
-\caption{Table showing the average about of pixels in persistence-affected regions above certain ADU levels. 
-The numbers are then normalized to fraction of total CCD pixels affected.
-We compare with different trail levels.
+\caption{Table showing the average fraction of pixels in persistence-affected images above certain ADU levels. 
+% The numbers are then normalized to fraction of total CCD pixels affected.
+We compare with the different trail levels tested.
 %  taken from a recent EO testing Opsim run.
 }  
 \end{table}
 
+\begin{table}[h!]
+  \centering
+  \begin{tabular}{|lcccc|}
+  \hline
+  \% of Spot in Trail & >3 ADU ($10^{-4}$) & >1 ADU ($10^{-4}$) & >0.1 ADU ($10^{-4}$) & >0.01 ADU ($10^{-4}$) \\
+  \hline
+  100 & 9527 & 9527 & 19050 & 38065 \\
+  75 & 9527 & 9527 & 19050 & 28601 \\
+  50 & 35 & 9527 & 19050 & 28601 \\
+  25 & 35 & 9527 & 19050 & 28601 \\
+  0 & 35 & 35 & 70 & 140 \\
+  % Dark &
+  \hline
+  \end{tabular}\label{tab:persis_affected_average_number}
+  \caption{Table showing the average number of pixels in persistence-affected images above certain ADU levels. 
+  % The numbers are then normalized to fraction of total CCD pixels affected.
+  We compare with the different trail levels tested.
+  %  taken from a recent EO testing Opsim run.
+  }  
+  \end{table}
+
+  \begin{table}[h!]
+    \centering
+    \begin{tabular}{|lcccc|}
+    \hline
+    \% of Spot in Trail & >3 ADU ($10^{-4}$) & >1 ADU ($10^{-4}$) & >0.1 ADU ($10^{-4}$) & >0.01 ADU ($10^{-4}$) \\
+    \hline
+    100 & 78151 & 78151 & 118835  & 159685 \\
+    75 & 78151 & 78151 & 118835 & 144537 \\
+    50 & 293 & 78151 & 118835 & 144537 \\
+    25 & 293 & 78151 & 118835 & 144537 \\
+    0 & 293 & 293 & 416 & 720 \\
+    % Dark &
+    \hline
+    \end{tabular}\label{tab:persis_affected_highest number}
+    \caption{Table showing the highest fraction of pixels in persistence-affected images above certain ADU levels. 
+    % The numbers are then normalized to fraction of total CCD pixels affected.
+    We compare with the different trail levels tested.
+    %  taken from a recent EO testing Opsim run.
+    }  
+    \end{table}
+    
 
 
 \subsection{Persistence Induced Flux Effects on Objects}
